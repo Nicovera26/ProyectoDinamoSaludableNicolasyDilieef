@@ -206,14 +206,22 @@ async function loop(net) {
 
   @override
 Widget build(BuildContext context) {
+  final mediaQuery = MediaQuery.of(context);
+  // Resta AppBar(56) + NavBar(80) + padding inferior del sistema
+  final viewportH = mediaQuery.size.height 
+      - 56   // AppBar
+      - 80   // NavBar
+      - mediaQuery.padding.bottom  // SafeArea inferior
+      - mediaQuery.padding.top;    // SafeArea superior (notch, etc.)
+
   return Column(
     children: [
-      // Ocupa todo el espacio disponible automáticamente
-      Expanded(
+      SizedBox(
+        height: viewportH,
+        width: double.infinity,
         child: const HtmlElementView(viewType: _viewId),
       ),
-
-      // Leyenda compacta
+      // ── Leyenda ──
       Container(
         color: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
