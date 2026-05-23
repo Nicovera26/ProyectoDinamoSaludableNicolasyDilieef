@@ -51,28 +51,39 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _logout() async {
-    final confirm = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        title: const Text('Cerrar sesión'),
-        content: const Text('¿Confirma que desea cerrar la sesión actual?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('Cancelar')),
-          FilledButton(
-            style: FilledButton.styleFrom(backgroundColor: const Color(0xFFDC3545)),
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Confirmar'),
-          ),
-        ],
-      ),
-    );
-    if (confirm != true || !mounted) return;
-    await ApiService.logout();
-    if (!mounted) return;
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (_) => const LoginScreen()), (_) => false);
-  }
+  final confirm = await showDialog<bool>(
+    context: context,
+    builder: (_) => AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      title: const Text('Cerrar sesión',
+          style: TextStyle(fontWeight: FontWeight.w700)),
+      content: const Text('¿Confirma que desea cerrar la sesión actual?'),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: const Text('Cancelar'),
+        ),
+        FilledButton(
+          style: FilledButton.styleFrom(
+              backgroundColor: const Color(0xFFDC3545)),
+          onPressed: () => Navigator.pop(context, true),
+          child: const Text('Confirmar'),
+        ),
+      ],
+    ),
+  );
+  if (confirm != true || !mounted) return;
+
+  // Cerrar sesión — limpia tokens sin importar si el servidor responde
+  await ApiService.logout();
+  await ApiService.clearSession();  // ← asegura limpieza local
+
+  if (!mounted) return;
+  Navigator.of(context).pushAndRemoveUntil(
+    MaterialPageRoute(builder: (_) => const LoginScreen()),
+    (_) => false,
+  );
+}
 
   @override
   Widget build(BuildContext context) {

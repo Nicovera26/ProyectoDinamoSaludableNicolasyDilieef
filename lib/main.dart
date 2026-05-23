@@ -53,7 +53,7 @@ class PausasActivasApp extends StatelessWidget {
           ),
         ),
       ),
-      // SplashScreen verifica si hay sesión activa
+
       home: const _SplashScreen(),
     );
   }
