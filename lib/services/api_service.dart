@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const String _baseUrl    = 'https://proyectodinamosaludablenicolasydilieef.onrender.com';
+  static const String _baseUrl    = 'https://proyectodinamosaludablenicolasydilieef.onrender.com/api';
   static const String _keyAccess  = 'jwt_access';
   static const String _keyRefresh = 'jwt_refresh';
   static const String _keyUser    = 'user_data';
