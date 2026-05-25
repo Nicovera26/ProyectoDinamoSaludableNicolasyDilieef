@@ -102,7 +102,6 @@ class _ContactScreenState extends State<ContactScreen> {
 
                     const SizedBox(height: 16),
 
-                    // Email
                     _fieldLabel('Correo electrónico'),
                     const SizedBox(height: 8),
                     TextFormField(
@@ -127,7 +126,6 @@ class _ContactScreenState extends State<ContactScreen> {
 
                     const SizedBox(height: 16),
 
-                    // Mensaje
                     _fieldLabel('Mensaje'),
                     const SizedBox(height: 8),
                     TextFormField(
@@ -171,7 +169,6 @@ class _ContactScreenState extends State<ContactScreen> {
 
           const SizedBox(height: 24),
 
-          // Info de contacto extra
           Card(
             elevation: 1,
             shape:

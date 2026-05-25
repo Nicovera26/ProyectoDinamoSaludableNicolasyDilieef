@@ -1,10 +1,3 @@
-// lib/forms/perfil_form.dart
-// CAMBIOS:
-//   • Carga datos reales del usuario autenticado via ApiService.getMe()
-//   • Guarda cambios via ApiService.updatePerfil() + ApiService.updateMe()
-//   • Controllers inicializan vacíos y se rellenan al cargar
-//   • Indicador de carga mientras trae los datos del backend
-
 import 'package:flutter/material.dart';
 import '../services/api_service.dart';
 
@@ -18,7 +11,6 @@ class PerfilForm extends StatefulWidget {
 class _PerfilFormState extends State<PerfilForm> {
   final _formKey = GlobalKey<FormState>();
 
-  // Controllers — inician vacíos, se rellenan desde el backend
   final _nombreController  = TextEditingController();
   final _emailController   = TextEditingController();
   final _edadController    = TextEditingController();
@@ -38,7 +30,6 @@ class _PerfilFormState extends State<PerfilForm> {
   final List<String> _frecuencias      = ['Cada 30 min', 'Cada 45 min', 'Cada 60 min', 'Cada 90 min'];
   final List<String> _nivelesActividad = ['Sedentario', 'Ligero', 'Moderado', 'Activo'];
 
-  // ── Lifecycle ─────────────────────────────────────────────────────────────
 
   @override
   void initState() {
@@ -55,8 +46,6 @@ class _PerfilFormState extends State<PerfilForm> {
     _empresaController.dispose();
     super.dispose();
   }
-
-  // ── Carga datos reales del backend ────────────────────────────────────────
 
   Future<void> _cargarDatosUsuario() async {
     setState(() { _cargando = true; _errorCarga = null; });
@@ -105,8 +94,6 @@ class _PerfilFormState extends State<PerfilForm> {
     });
   }
 
-  // ── Guardar cambios en el backend ─────────────────────────────────────────
-
   Future<void> _guardar() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _guardando = true);
@@ -125,7 +112,6 @@ class _PerfilFormState extends State<PerfilForm> {
       return;
     }
 
-    // Actualizar perfil extendido (cargo, frecuencia, nivel, notificaciones)
     final perfilRes = await ApiService.updatePerfil({
       'cargo':             _cargoController.text.trim(),
       'frecuencia_pausas': _frecuencia,
@@ -175,7 +161,6 @@ class _PerfilFormState extends State<PerfilForm> {
     );
   }
 
-  // ── Build ─────────────────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -207,8 +192,6 @@ class _PerfilFormState extends State<PerfilForm> {
     );
   }
 
-  // ── Vista de error ────────────────────────────────────────────────────────
-
   Widget _buildError() {
     return Center(
       child: Padding(
@@ -232,7 +215,6 @@ class _PerfilFormState extends State<PerfilForm> {
     );
   }
 
-  // ── Formulario ────────────────────────────────────────────────────────────
 
   Widget _buildForm() {
     return SingleChildScrollView(
@@ -387,7 +369,6 @@ class _PerfilFormState extends State<PerfilForm> {
 
                   const SizedBox(height: 16),
 
-                  // Nivel de actividad
                   const Text('Nivel de actividad física',
                       style: TextStyle(
                           fontSize: 13,
@@ -489,7 +470,6 @@ class _PerfilFormState extends State<PerfilForm> {
   }
 }
 
-// ── Widgets auxiliares ────────────────────────────────────────────────────
 
 class _SectionTitle extends StatelessWidget {
   final String title;

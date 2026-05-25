@@ -2,7 +2,6 @@ part of 'auth_bloc.dart';
 
 abstract class AuthEvent {}
 
-// ── Login Events ────────────────────────────────────────────────────────────
 
 class LoginEmailChanged extends AuthEvent {
   final String email;
@@ -21,7 +20,6 @@ class LoginRememberMeChanged extends AuthEvent {
 
 class LoginSubmitted extends AuthEvent {}
 
-// ── Register Events ─────────────────────────────────────────────────────────
 
 class RegisterNombreChanged extends AuthEvent {
   final String nombre;

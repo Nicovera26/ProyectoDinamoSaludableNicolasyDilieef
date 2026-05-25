@@ -67,7 +67,7 @@ class _ReporteFormState extends State<ReporteForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // ── Header info ──
+
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
@@ -89,7 +89,7 @@ class _ReporteFormState extends State<ReporteForm> {
 
               const SizedBox(height: 20),
 
-              // ── Completó la rutina ──
+
               _SectionCard(
                 title: '¿Completaste la rutina completa?',
                 child: Row(children: [
@@ -117,7 +117,7 @@ class _ReporteFormState extends State<ReporteForm> {
 
               const SizedBox(height: 14),
 
-              // ── Nivel de energía ──
+
               _SectionCard(
                 title: 'Nivel de energía',
                 child: Wrap(
@@ -150,7 +150,7 @@ class _ReporteFormState extends State<ReporteForm> {
 
               const SizedBox(height: 14),
 
-              // ── Dolor o molestia ──
+
               _SectionCard(
                 title: 'Dolor o molestia',
                 child: Wrap(
@@ -190,7 +190,7 @@ class _ReporteFormState extends State<ReporteForm> {
 
               const SizedBox(height: 14),
 
-              // ── Satisfacción ──
+
               _SectionCard(
                 title: 'Satisfacción general  ${_satisfaccion.round()}/5',
                 child: Column(
@@ -221,7 +221,6 @@ class _ReporteFormState extends State<ReporteForm> {
 
               const SizedBox(height: 14),
 
-              // ── Notas adicionales ──
               _SectionCard(
                 title: 'Notas adicionales (opcional)',
                 child: TextFormField(
@@ -250,7 +249,6 @@ class _ReporteFormState extends State<ReporteForm> {
 
               const SizedBox(height: 24),
 
-              // ── Botón enviar ──
               ElevatedButton(
                 onPressed: _enviando ? null : _enviar,
                 style: ElevatedButton.styleFrom(
@@ -279,7 +277,6 @@ class _ReporteFormState extends State<ReporteForm> {
   }
 }
 
-// ── Widgets auxiliares ────────────────────────────────────────────────────
 
 class _SectionCard extends StatelessWidget {
   final String title;

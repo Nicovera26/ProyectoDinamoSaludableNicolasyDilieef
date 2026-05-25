@@ -17,8 +17,6 @@ def _get_tokens(user):
     return {"refresh": str(refresh), "access": str(refresh.access_token)}
 
 
-# ── POST /api/auth/register/ ─────────────────────────────────────────────────
-
 class RegisterView(APIView):
     permission_classes = [AllowAny]
 
@@ -33,8 +31,6 @@ class RegisterView(APIView):
             "tokens":  _get_tokens(user),
         }, status=status.HTTP_201_CREATED)
 
-
-# ── POST /api/auth/login/ ────────────────────────────────────────────────────
 
 class LoginView(APIView):
     permission_classes = [AllowAny]
@@ -51,7 +47,6 @@ class LoginView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-# ── POST /api/auth/logout/ ───────────────────────────────────────────────────
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
@@ -67,7 +62,6 @@ class LogoutView(APIView):
             return Response({"error": "Token inválido o ya expirado."}, status=status.HTTP_400_BAD_REQUEST)
 
 
-# ── GET | PATCH /api/auth/me/ ────────────────────────────────────────────────
 
 class MeView(APIView):
     permission_classes = [IsAuthenticated]
@@ -83,8 +77,6 @@ class MeView(APIView):
         serializer.save()
         return Response(serializer.data)
 
-
-# ── GET | PATCH /api/perfil/ ─────────────────────────────────────────────────
 
 class PerfilView(APIView):
     permission_classes = [IsAuthenticated]
@@ -113,8 +105,6 @@ class PerfilView(APIView):
         })
 
 
-# ── GET | POST /api/reportes/ ────────────────────────────────────────────────
-
 class ReporteListCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -141,8 +131,6 @@ class ReporteListCreateView(APIView):
         }, status=status.HTTP_201_CREATED)
 
 
-# ── GET | DELETE /api/reportes/<id>/ ─────────────────────────────────────────
-
 class ReporteDetailView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -166,8 +154,6 @@ class ReporteDetailView(APIView):
         return Response({"message": "Reporte eliminado."}, status=status.HTTP_204_NO_CONTENT)
 
 
-# ── GET | POST /api/ejercicios/ ───────────────────────────────────────────────
-
 class EjercicioListCreateView(APIView):
     permission_classes = [IsAuthenticated]
 
@@ -187,8 +173,6 @@ class EjercicioListCreateView(APIView):
             'ejercicio': EjercicioSerializer(ejercicio).data,
         }, status=status.HTTP_201_CREATED)
 
-
-# ── GET | PATCH | DELETE /api/ejercicios/<id>/ ────────────────────────────────
 
 class EjercicioDetailView(APIView):
     permission_classes = [IsAuthenticated]

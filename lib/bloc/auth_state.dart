@@ -1,6 +1,5 @@
 part of 'auth_bloc.dart';
 
-// ── Estados de validación individual de campo ────────────────────────────────
 
 enum FieldStatus { pure, valid, invalid }
 
@@ -32,17 +31,15 @@ class FieldState {
   }
 }
 
-// ── Estado global del AuthBloc ───────────────────────────────────────────────
 
 enum AuthStatus { idle, loading, success, failure }
 
 class AuthState {
-  // Login
+
   final FieldState loginEmail;
   final FieldState loginPassword;
   final bool rememberMe;
 
-  // Register
   final FieldState registerNombre;
   final FieldState registerEdad;
   final FieldState registerPeso;
@@ -52,7 +49,6 @@ class AuthState {
   final FieldState registerConfirmPassword;
   final DateTime? fechaNacimiento;
 
-  // Common
   final AuthStatus status;
   final String? errorMessage;
 

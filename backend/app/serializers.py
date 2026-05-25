@@ -10,7 +10,6 @@ from .models import (
 )
 
 
-# ── Helpers de validación (espejo de auth_bloc.dart) ─────────────────────────
 
 def validar_nombre(value):
     value = value.strip()
@@ -39,7 +38,6 @@ def calcular_edad(fecha_nacimiento: date) -> int:
     return edad
 
 
-# ── Register ──────────────────────────────────────────────────────────────────
 
 class RegisterSerializer(serializers.ModelSerializer):
     password         = serializers.CharField(write_only=True, min_length=6)
@@ -84,7 +82,6 @@ class RegisterSerializer(serializers.ModelSerializer):
         return user
 
 
-# ── Login ─────────────────────────────────────────────────────────────────────
 
 class LoginSerializer(serializers.Serializer):
     email    = serializers.EmailField()
@@ -101,7 +98,6 @@ class LoginSerializer(serializers.Serializer):
         return attrs
 
 
-# ── Perfil extendido (perfil_form.dart) ──────────────────────────────────────
 
 class PerfilUsuarioSerializer(serializers.ModelSerializer):
     class Meta:
@@ -122,8 +118,6 @@ class PerfilUsuarioSerializer(serializers.ModelSerializer):
         return value
 
 
-# ── Usuario completo (GET /me) ────────────────────────────────────────────────
-
 class UsuarioSerializer(serializers.ModelSerializer):
     edad   = serializers.IntegerField(read_only=True)
     perfil = PerfilUsuarioSerializer(read_only=True)
@@ -134,8 +128,6 @@ class UsuarioSerializer(serializers.ModelSerializer):
                   "peso", "empresa", "perfil", "date_joined"]
         read_only_fields = ["id", "email", "date_joined", "edad"]
 
-
-# ── Reporte de sesión (reporte_form.dart) ─────────────────────────────────────
 
 class ReporteSesionSerializer(serializers.ModelSerializer):
     usuario = serializers.StringRelatedField(read_only=True)
@@ -164,12 +156,11 @@ class ReporteSesionSerializer(serializers.ModelSerializer):
         return value
 
     def create(self, validated_data):
-        # El usuario viene del contexto (request.user), no del body
+
         validated_data["usuario"] = self.context["request"].user
         return super().create(validated_data)
 
 
-# ── Ejercicio personalizado ───────────────────────────────────────────────────
 
 class EjercicioSerializer(serializers.ModelSerializer):
     usuario = serializers.StringRelatedField(read_only=True)

@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import '../bloc/auth_bloc.dart';
 
-// ╔══════════════════════════════════════════════════════════════════════════╗
-// ║  field_helpers.dart                                                      ║
-// ║  Helpers visuales compartidos entre LoginScreen y RegisterScreen         ║
-// ╚══════════════════════════════════════════════════════════════════════════╝
 
-/// Ícono de estado a la derecha del campo (check verde / error rojo)
 Widget? fieldStatusIcon(FieldStatus status) {
   if (status == FieldStatus.valid) {
     return const Icon(Icons.check_circle_outline, color: Color(0xFF198754));
@@ -17,7 +12,6 @@ Widget? fieldStatusIcon(FieldStatus status) {
   return null;
 }
 
-/// Borde coloreado según el estado del campo
 OutlineInputBorder fieldBorderFor(FieldStatus status, {bool focused = false}) {
   Color color;
   if (status == FieldStatus.valid) {
@@ -33,7 +27,6 @@ OutlineInputBorder fieldBorderFor(FieldStatus status, {bool focused = false}) {
   );
 }
 
-/// Texto de error rojo debajo del campo
 Widget fieldErrorText(String msg) => Padding(
       padding: const EdgeInsets.only(top: 6, left: 4),
       child: Text(
@@ -42,7 +35,6 @@ Widget fieldErrorText(String msg) => Padding(
       ),
     );
 
-/// Texto de éxito verde debajo del campo
 Widget fieldSuccessText(String msg) => Padding(
       padding: const EdgeInsets.only(top: 6, left: 4),
       child: Text(

@@ -4,10 +4,6 @@ from django.db import models
 from django.utils import timezone
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  USUARIO
-# ══════════════════════════════════════════════════════════════════════════════
-
 class UsuarioManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -61,10 +57,6 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         return edad
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  PERFIL EXTENDIDO  (perfil_form.dart)
-# ══════════════════════════════════════════════════════════════════════════════
-
 class FRECUENCIA(models.TextChoices):
     MIN_30 = "Cada 30 min", "Cada 30 min"
     MIN_45 = "Cada 45 min", "Cada 45 min"
@@ -101,9 +93,6 @@ class PerfilUsuario(models.Model):
         return f"Perfil de {self.usuario.nombre}"
 
 
-# ══════════════════════════════════════════════════════════════════════════════
-#  REPORTE DE SESIÓN  (reporte_form.dart)
-# ══════════════════════════════════════════════════════════════════════════════
 
 class NIVEL_ENERGIA(models.TextChoices):
     MUY_BAJO  = "Muy bajo",  "Muy bajo"
@@ -145,10 +134,6 @@ class ReporteSesion(models.Model):
     def __str__(self):
         return f"Reporte {self.fecha.date()} — {self.usuario.nombre}"
 
-
-# ══════════════════════════════════════════════════════════════════════════════
-#  EJERCICIO PERSONALIZADO
-# ══════════════════════════════════════════════════════════════════════════════
 
 class Ejercicio(models.Model):
     """

@@ -1,6 +1,3 @@
-// lib/bloc/auth_bloc.dart — VERSIÓN FINAL CORREGIDA
-// Usa ApiService con métodos estáticos y ApiResponse (sin ApiException)
-
 import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rxdart/rxdart.dart';
@@ -43,8 +40,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         .switchMap(mapper);
   }
 
-  // ── Login handlers ─────────────────────────────────────────────────────
-
   void _onLoginEmailChanged(LoginEmailChanged event, Emitter<AuthState> emit) {
     _loginEmailSubject.add(event.email);
     emit(state.copyWith(loginEmail: _validateEmail(event.email)));
@@ -77,14 +72,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return;
     }
 
-    // ── Llamada estática al ApiService ──────────────────────────────────
     final res = await ApiService.login(
       email:    state.loginEmail.value.trim(),
       password: state.loginPassword.value,
     );
 
     if (res.success) {
-      // Guardar tokens JWT que devuelve Django
+
       final tokens = res.data['tokens'] as Map<String, dynamic>?;
       if (tokens != null) {
         await ApiService.saveTokens(
@@ -92,11 +86,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           tokens['refresh'].toString(),
         );
       }
-      // Guardar datos del usuario en caché
+
       final user = res.data['user'] as Map<String, dynamic>?;
       if (user != null) await ApiService.saveUser(user);
 
-      // Guardar preferencia "Recordarme"
       if (state.rememberMe) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setBool('remember_me', true);
@@ -110,8 +103,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       ));
     }
   }
-
-  // ── Register handlers ──────────────────────────────────────────────────
 
   void _onRegisterNombreChanged(RegisterNombreChanged event, Emitter<AuthState> emit) =>
       emit(state.copyWith(registerNombre: _validateNombre(event.nombre)));
@@ -200,7 +191,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       return;
     }
 
-    // ── Llamada estática al ApiService ──────────────────────────────────
     final res = await ApiService.register(
       nombre:           state.registerNombre.value.trim(),
       email:            state.registerEmail.value.trim(),
@@ -212,7 +202,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     );
 
     if (res.success) {
-      // Guardar tokens JWT que devuelve Django
+
       final tokens = res.data['tokens'] as Map<String, dynamic>?;
       if (tokens != null) {
         await ApiService.saveTokens(
@@ -220,7 +210,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           tokens['refresh'].toString(),
         );
       }
-      // Guardar datos del usuario en caché
+
       final user = res.data['user'] as Map<String, dynamic>?;
       if (user != null) await ApiService.saveUser(user);
 
@@ -233,7 +223,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  // ── Validadores ────────────────────────────────────────────────────────
 
   static FieldState _validateEmail(String value, {bool force = false}) {
     if (value.isEmpty && !force) return FieldState(value: value);

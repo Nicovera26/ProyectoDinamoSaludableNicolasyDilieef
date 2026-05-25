@@ -1,4 +1,3 @@
-// ignore: avoid_web_libraries_in_flutter
 import 'package:web/web.dart' as web;
 import 'dart:ui_web' as ui_web;
 import 'package:flutter/material.dart';
@@ -207,12 +206,12 @@ async function loop(net) {
   @override
 Widget build(BuildContext context) {
   final mediaQuery = MediaQuery.of(context);
-  // Resta AppBar(56) + NavBar(80) + padding inferior del sistema
+
   final viewportH = mediaQuery.size.height 
-      - 56   // AppBar
-      - 80   // NavBar
-      - mediaQuery.padding.bottom  // SafeArea inferior
-      - mediaQuery.padding.top;    // SafeArea superior (notch, etc.)
+      - 56   
+      - 80  
+      - mediaQuery.padding.bottom  
+      - mediaQuery.padding.top;    
 
   return Column(
     children: [

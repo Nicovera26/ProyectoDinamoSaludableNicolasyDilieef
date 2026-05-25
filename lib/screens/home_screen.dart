@@ -5,9 +5,6 @@ import '../forms/perfil_form.dart';
 import '../services/api_service.dart';
 import 'login_screen.dart';
 
-// ══════════════════════════════════════════════════════════════════════════════
-//  HOME SCREEN
-// ══════════════════════════════════════════════════════════════════════════════
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -74,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
   );
   if (confirm != true || !mounted) return;
 
-  // Cerrar sesión — limpia tokens sin importar si el servidor responde
   await ApiService.logout();
   await ApiService.clearSession();  // ← asegura limpieza local
 
@@ -125,10 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-//  DASHBOARD — con CRUD de ejercicios
-// ══════════════════════════════════════════════════════════════════════════════
-
 class _DashboardSection extends StatefulWidget {
   final VoidCallback onGoToCamera;
   const _DashboardSection({required this.onGoToCamera});
@@ -166,7 +158,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
     _cargarEjercicios();
   }
 
-  // ── API calls ─────────────────────────────────────────────────────────────
 
   Future<void> _cargarEjercicios() async {
     setState(() => _loadingEjercicios = true);
@@ -244,7 +235,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
     ));
   }
 
-  // ── Modal crear/editar ────────────────────────────────────────────────────
 
   void _showFormEjercicio({Map<String, dynamic>? ejercicio}) {
     final nombreCtrl = TextEditingController(text: ejercicio?['nombre'] ?? '');
@@ -309,7 +299,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
               ),
               const SizedBox(height: 14),
 
-              // Ícono
               _formLabel('Ícono'),
               const SizedBox(height: 8),
               Wrap(spacing: 10, runSpacing: 10,
@@ -365,7 +354,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
   Widget _formLabel(String text) => Text(text,
       style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF1A1A2E)));
 
-  // ── Build ─────────────────────────────────────────────────────────────────
 
   @override
   Widget build(BuildContext context) {
@@ -376,7 +364,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
       padding: const EdgeInsets.all(20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
 
-        // Encabezado
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             const Text('PROGRAMA DE BIENESTAR LABORAL',
@@ -403,7 +390,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
 
         const SizedBox(height: 16),
 
-        // Aviso ergonómico
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           decoration: BoxDecoration(
@@ -424,7 +410,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
 
         const SizedBox(height: 16),
 
-        // Progreso
         if (total > 0) ...[
           Container(
             padding: const EdgeInsets.all(16),
@@ -471,7 +456,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
           const SizedBox(height: 20),
         ],
 
-        // Título + botón agregar
         Row(children: [
           const Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -495,7 +479,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
         ]),
         const SizedBox(height: 12),
 
-        // Lista de ejercicios
         if (_loadingEjercicios)
           const Center(child: Padding(
             padding: EdgeInsets.all(32),
@@ -650,9 +633,6 @@ class _DashboardSectionState extends State<_DashboardSection> {
   }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-//  FORMULARIOS
-// ══════════════════════════════════════════════════════════════════════════════
 
 class _FormulariosSection extends StatelessWidget {
   const _FormulariosSection();
@@ -686,9 +666,6 @@ class _FormulariosSection extends StatelessWidget {
   }
 }
 
-// ══════════════════════════════════════════════════════════════════════════════
-//  WIDGETS AUXILIARES
-// ══════════════════════════════════════════════════════════════════════════════
 
 class _StatChip extends StatelessWidget {
   final String label, value; final Color color;

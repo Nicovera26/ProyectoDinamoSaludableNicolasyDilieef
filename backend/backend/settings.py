@@ -9,7 +9,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-# ── Apps ──────────────────────────────────────────────────────────────────────
 
 INSTALLED_APPS = [
     "django.contrib.admin",
