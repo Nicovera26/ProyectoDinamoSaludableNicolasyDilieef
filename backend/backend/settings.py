@@ -57,33 +57,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-# ── Base de datos ─────────────────────────────────────────────────────────────
-# Cambia este bloque según tu entorno:
-#
-# OPCIÓN A — SQLite (desarrollo rápido, sin instalar nada):
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
+
 
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "pausas_activas",
-        "USER": "postgres",
-        "PASSWORD": "Nico0726",
-        "HOST": "127.0.0.1",
+        "NAME": "pausas_activas_db",
+        "USER": "pausas_activas_db_user",
+        "PASSWORD": "Cw2uBRHpafFzk9lERJfxuCLO65lC3njA",
+        "HOST": "dpg-d8a84i3bc2fs73fr2d6g-a.oregon-postgres.render.com",
         "PORT": "5432",
     }
 }
 
-# ── Usuario personalizado ─────────────────────────────────────────────────────
 
 AUTH_USER_MODEL = "app.Usuario"
-
-# ── DRF ───────────────────────────────────────────────────────────────────────
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
@@ -94,7 +82,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-# ── JWT ───────────────────────────────────────────────────────────────────────
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME":  timedelta(hours=1),
@@ -104,17 +91,16 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-# ── CORS ──────────────────────────────────────────────────────────────────────
-# Permite peticiones desde Flutter web (localhost) y emulador Android
+
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
-    "http://localhost:51856",   # Flutter web dev server
+    "http://localhost:51856",   
     "http://127.0.0.1:8000",
-    "http://10.0.2.2:8000",     # emulador Android
+    "http://10.0.2.2:8000",     
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True   # ← en producción cambia a False
+CORS_ALLOW_ALL_ORIGINS = True 
 
 CORS_ALLOW_HEADERS = [
     "accept",
@@ -125,14 +111,13 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
 ]
 
-# ── Internacionalización ──────────────────────────────────────────────────────
 
 LANGUAGE_CODE = "es-co"
 TIME_ZONE     = "America/Bogota"
 USE_I18N = True
 USE_TZ   = True
 
-# ── Static (WhiteNoise para Apache) ───────────────────────────────────────────
+
 
 STATIC_URL  = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
