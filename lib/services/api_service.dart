@@ -1,18 +1,15 @@
-// lib/services/api_service.dart — VERSIÓN FINAL UNIFICADA
-// Compatible con backend Django en 127.0.0.1:8000/api
 
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
-  static const String _baseUrl    = 'http://127.0.0.1:8000/api';
+  static const String _baseUrl    = 'https://proyectodinamosaludablenicolasydilieef.onrender.com';
   static const String _keyAccess  = 'jwt_access';
   static const String _keyRefresh = 'jwt_refresh';
   static const String _keyUser    = 'user_data';
   static const _timeout = Duration(seconds: 10);
 
-  // ── Tokens ────────────────────────────────────────────────────────────────
 
   static Future<void> saveTokens(String access, String refresh) async {
     final prefs = await SharedPreferences.getInstance();
@@ -42,7 +39,6 @@ class ApiService {
     return token != null && token.isNotEmpty;
   }
 
-  // ── Caché de usuario ──────────────────────────────────────────────────────
 
   static Future<void> saveUser(Map<String, dynamic> user) async {
     final prefs = await SharedPreferences.getInstance();
@@ -56,7 +52,6 @@ class ApiService {
     return jsonDecode(raw) as Map<String, dynamic>;
   }
 
-  // ── Headers ───────────────────────────────────────────────────────────────
 
   static Future<Map<String, String>> _authHeaders() async {
     final token = await getAccessToken();
@@ -66,7 +61,6 @@ class ApiService {
     };
   }
 
-  // ── Refresh automático ────────────────────────────────────────────────────
 
   static Future<bool> _refreshToken() async {
     final refresh = await getRefreshToken();
@@ -86,7 +80,6 @@ class ApiService {
     return false;
   }
 
-  // ── Petición autenticada con retry ────────────────────────────────────────
 
   static Future<http.Response> _authedRequest(
     Future<http.Response> Function(Map<String, String> headers) request,
@@ -103,9 +96,6 @@ class ApiService {
     return res;
   }
 
-  // ══════════════════════════════════════════════════════════════════════════
-  //  AUTH
-  // ══════════════════════════════════════════════════════════════════════════
 
   static Future<ApiResponse> register({
     required String nombre,
@@ -176,7 +166,6 @@ class ApiService {
     }
   }
 
-  /// Datos base del usuario autenticado (nombre, email, edad, empresa)
   static Future<ApiResponse> getMe() async {
     try {
       final res = await _authedRequest(
@@ -207,11 +196,7 @@ class ApiService {
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════════
-  //  PERFIL EXTENDIDO
-  // ══════════════════════════════════════════════════════════════════════════
 
-  /// Trae cargo, frecuencia_pausas, nivel_actividad, notificaciones
   static Future<ApiResponse> getPerfil() async {
     try {
       final res = await _authedRequest(
@@ -226,7 +211,6 @@ class ApiService {
     }
   }
 
-  /// Actualiza cargo, frecuencia_pausas, nivel_actividad, notificaciones
   static Future<ApiResponse> updatePerfil(Map<String, dynamic> data) async {
     try {
       final res = await _authedRequest(
@@ -242,9 +226,7 @@ class ApiService {
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════════
-  //  REPORTES
-  // ══════════════════════════════════════════════════════════════════════════
+
 
   static Future<ApiResponse> getReportes() async {
     try {
@@ -287,9 +269,6 @@ class ApiService {
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════════
-  //  EJERCICIOS
-  // ══════════════════════════════════════════════════════════════════════════
 
   static Future<ApiResponse> getEjercicios() async {
     try {
@@ -377,9 +356,6 @@ class ApiService {
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════════
-  //  CONTACTO
-  // ══════════════════════════════════════════════════════════════════════════
 
   static Future<ApiResponse> enviarContacto({
     required String nombre,
@@ -402,9 +378,6 @@ class ApiService {
     }
   }
 
-  // ══════════════════════════════════════════════════════════════════════════
-  //  HELPERS
-  // ══════════════════════════════════════════════════════════════════════════
 
   static String _formatDate(DateTime d) =>
       '${d.year}-${d.month.toString().padLeft(2, '0')}-'
@@ -434,7 +407,6 @@ class ApiService {
   }
 }
 
-// ── Wrapper de respuesta ──────────────────────────────────────────────────
 
 class ApiResponse {
   final bool success;
