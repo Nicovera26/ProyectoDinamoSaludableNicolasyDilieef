@@ -366,7 +366,7 @@ class _DashboardSectionState extends State<_DashboardSection> {
 
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            const Text('PROGRAMA DE BIENESTAR LABORAL',
+            const Text('PROGRAMA DE BIENESTAR ACADEMICO',
                 style: TextStyle(fontSize: 10, fontWeight: FontWeight.w700, color: _primary, letterSpacing: 1.5)),
             const SizedBox(height: 4),
             const Text('Rutina de Pausas Activas',
